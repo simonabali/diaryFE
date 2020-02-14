@@ -1,0 +1,78 @@
+img { 
+	max-width: 100%; 
+	height: auto; }
+
+.addSpace {padding:30px;}
+
+.social {
+	width: 20px;
+	height: 20px;
+}
+
+.button {
+	background-color: #C2A83E;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+}
+
+#logo {
+	max-width: 400px;
+}
+
+.cardSmall {
+	
+	max-height: 280px;
+}
+
+.team {
+	max-height: 300px;
+	max-width: 300px;
+	padding-bottom: 15px;
+	
+}
+
+.bio {
+	max-width: 350px;
+}
+
+body{
+	font-family: 'Lato', sans-serif;
+}
+
+.addSpace2 {
+	padding-top: 80px;
+}
+
+.storeicon {
+	max-width: 30%;
+	max-height: 30%;
+}
+
+.introtext {
+	font-size: 20px;
+}
+
+.featureEl {
+
+}
+
+.featureCol{
+	justify-content: center;
+
+}
+
+.navbar-custom {
+	background-color: #40BFB8;
+	font-weight: bold;
+}
+
+.custom-card {
+	margin: 30px;
+}
+
+
+#quote {
+	font-style: italic;
+	font-size: 20px;
+}

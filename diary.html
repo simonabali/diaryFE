@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/cd6b130da1.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css"></style>
+            
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+  
+
+<div class= container>
+
+  <div class="row ">
+      <div class="col-md-12">
+        <nav class="container navbar fixed-top navbar-expand-lg navbar-dark navbar-custom ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+          <div class="navbar-nav ">
+              <a class="nav-item nav-link active" href="index.html">Home</span></a>
+              <a class="nav-item nav-link" href="create-entry.html">Create entry</a>
+          </div>
+        </div>
+      </nav>
+      </div>
+    </div>
+
+
+
+    <h1>My diary</h1>
+  <br>
+  <br>
+ 
+  <div class = "row addSpace">
+    <div class = col-3-md>
+    </div>
+    <div class = col-6-md>
+    <h3 id = "quote">Quote of the Day</h3>
+  </div>
+  <div class = col-3-md> 
+  </div>
+
+
+  </div>
+
+  <div class = "row" id="diary-entries">
+    <h3>Loading entries&hellip;</h3>
+  </div>
+</div>
+
+<!-- <script>
+  const useData = function (data) {
+  console.log(data)
+  $("#quote").append(`<h2>${data.quoteText}</h2>
+        <h4>${data.quoteAuthor}</h>`)}
+
+  const showquote = function () {
+  $.ajax({
+  method: "GET",
+  url: "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?",
+  success: useData(response),
+  error: function (xhr, text, error) { alert("Error") }
+  })}
+
+showquote()
+
+</script> -->
+
+<script>
+    const quoteurl = 'https://150000-quotes.p.rapidapi.com/keyword/Motivation';
+    document.addEventListener("DOMContentLoaded", () => {
+      const quote_day = document.querySelector('#quote');
+      fetch(quoteurl, {
+        headers: { "x-rapidapi-host": "150000-quotes.p.rapidapi.com", "x-rapidapi-key": "8e115f1a00mshc239258cd597ca6p1a9c7ejsn5f75e3bd6683"}})
+      .then(r => r.json())
+      .then( data=> {
+        const quote = data.message;
+        quote_day.innerHTML = `" ${quote} "` ;
+
+      })
+    })
+    
+
+</script>
+
+<!-- Don't worry todatao much about what's written in the section below this in the <script tags> for now. It represents Javascript code that calls our API and returns the diary entries to our HTML page (above!) -->
+  <script>
+    const url = 'https://simona.pythonanywhere.com/diaryentry';
+    document.addEventListener("DOMContentLoaded", () => {
+      const diaryEntries = document.querySelector('#diary-entries');
+      fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        const ids = Object.keys(data.entries)
+        const sortedEntries = ids.sort((a, b) => new Date(data.entries[a]).getTime() - new Date(data.entries[b]).getTime());
+        const entriesContent = ids.map(id => `
+         
+          <div class="col-md-12">
+            <div class="card custom-card" style="width: 70rem;">
+              <div class="card-body">
+                <h3 class="card-title">${data.entries[id].title}</h5>
+                <p class="card-text">${data.entries[id].description}</p>
+                <p>Published: ${new Date(data.entries[id].createdat).toDateString()} - ${new Date(data.entries[id].createdat).toLocaleTimeString()}
+                </p>
+                <a href="single-entry.html?id=${id}">View</a>
+                <a href="update-entry.html?id=${id}">Update</a>
+              
+              </div>
+            </div>
+          </div>
+        
+        `).join("");
+        diaryEntries.innerHTML = entriesContent;
+      })
+    });
+  </script>
+
+<!-- This tag deleted one single diary post! -->
+<!--   <script>
+    
+      const deletePost = document.querySelector('#deleteButton');
+      const url = `https://simona.pythonanywhere.com/diaryentry/${id}`;
+      
+      fetch (url, {
+      method: 'delete',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+      .then(r => r.json())
+      .then(res => {
+        const entry = res.entry; //name "entry" needs to match the name we added in app.py in the response (next to message)
+       
+      })
+  
+  </script>
+ -->
+    
+
+
+</body>
+</html>

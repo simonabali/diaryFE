@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Update entry</title>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/cd6b130da1.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css"></style>
+            
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  
+   
+  
+
+<div class= container>
+
+  <div class="row ">
+      <div class="col-md-12">
+        <nav class="container navbar fixed-top navbar-expand-lg navbar-dark navbar-custom ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ">
+              <a class="nav-item nav-link active" href="index.html">Home</span></a>
+              <a class="nav-item nav-link" href="diary.html">My Diary</a>
+            </div>
+           </div>
+      </nav>
+      </div>
+    </div>
+
+
+   <div class="row addSpace2">
+        <div class="col-md-12">
+          <div><h1>Update diary entry</h1></div>
+      <!-- <div id="success-msg" class="hidden" style="color: teal">Entry updated</div> -->
+        </div>
+  </div>
+
+  <div class="col-md-12">
+   
+      <form id="diary-form" action="#">
+    <label for="title">Entry title:</label>
+    <input type="text" name="title">
+    <br/>
+    <label for="description">Entry text:</label>
+    <textarea name="description"></textarea>
+    <br/>
+    <input type="submit" value="Save">
+  </form>
+  <div id="content"></div>
+</div>
+</div>
+</div>
+
+<!-- This tag renders just one single diary post! -->
+  <script>
+    document.querySelector('#diary-form').addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    console.log(ev);
+
+
+
+      // this is a dirty hack 🤮
+      const id = location.search.slice('?id='.length);
+      const url = `https://simona.pythonanywhere.com/diaryentry/${id}`;
+      const data = {
+      title: ev.target.elements[0].value,
+      description: ev.target.elements[1].value,
+    }
+
+    fetch(url, {
+      method: 'put',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+      .then(r => r.json())
+      .then(res => {
+        const entry = res.entry; //name "entry" needs to match the name we added in app.py in the response (next to message)
+        const entryHTML = `
+          <div>
+            <h3>${entry.title}</h3>
+            <a href="single-entry.html?id=${id}">Update</a>
+            <h4>Published: ${new Date(entry.createdat).toDateString()}</h4>
+            <p>${entry.description}</p>
+            <hr />
+          </div>
+        `;
+        titleH1.innerHTML = entry.title
+        content.innerHTML = entryHTML;
+      })
+    });
+  </script>
+</body>
+</html>
+
+
+<!-- </head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Create entry</a>
+  </nav>
+ 
+</body>
