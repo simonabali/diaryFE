@@ -61,6 +61,8 @@
   </div>
 </div>
 
+
+
 <!-- <script>
   const useData = function (data) {
   console.log(data)
@@ -84,7 +86,7 @@ showquote()
     document.addEventListener("DOMContentLoaded", () => {
       const quote_day = document.querySelector('#quote');
       fetch(quoteurl, {
-        headers: { "x-rapidapi-host": "150000-quotes.p.rapidapi.com", "x-rapidapi-key": "8e115f1a00mshc239258cd597ca6p1a9c7ejsn5f75e3bd6683"}})
+        headers: { "x-rapidapi-host": "-", "x-rapidapi-key": "-"}})
       .then(r => r.json())
       .then( data=> {
         const quote = data.message;
@@ -93,7 +95,6 @@ showquote()
       })
     })
     
-
 </script>
 
 <!-- Don't worry todatao much about what's written in the section below this in the <script tags> for now. It represents Javascript code that calls our API and returns the diary entries to our HTML page (above!) -->
